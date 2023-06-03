@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Extensions.fs" />
+    <Compile Include="DataAccess.fs" />
+    <Compile Include="SqlTaskRepository.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper.FSharp" Version="4.5.0" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TaskTracker.Models\TaskTracker.Models.fsproj" />
+    <ProjectReference Include="..\TaskTracker.Repository\TaskTracker.Repository.fsproj" />
+  </ItemGroup>
+
+</Project>
