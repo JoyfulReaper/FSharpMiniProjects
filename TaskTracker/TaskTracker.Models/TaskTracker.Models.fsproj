@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="TaskTracker.Models.fs" />
     <Compile Include="TaskTracker.Dto.fs" />
+    <Compile Include="TaskTracker.Models.fs" />
   </ItemGroup>
 
 </Project>

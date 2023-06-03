@@ -1,6 +1,6 @@
 ﻿namespace TaskTracker.Repository
 
-open TaskTracker.Models
+open TaskTracker.Models.Task
 open System
 
 type ITaskRepository =
@@ -9,3 +9,4 @@ type ITaskRepository =
     abstract member Create : Task -> Async<Task>
     abstract member Update : Task -> Async<Task>
     abstract member Delete : Guid -> Async<unit>
+    abstract member EnsureTableCreated : unit -> Async<unit>

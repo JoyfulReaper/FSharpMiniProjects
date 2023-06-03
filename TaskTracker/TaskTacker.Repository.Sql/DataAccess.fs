@@ -17,22 +17,21 @@ module Connection =
 
 
 
-module Tasks =
+module DatabaseCreator =
     open Connection
     open TaskTraker.Repository.Extensions
 
-    let CreateTable =
+    let ensureDatabaseReady =
         task {
             do!
                 """
-                CREATE TABLE [Persons](
-                    [Id] [TEXT] NOT NULL PRIMARY KEY,
-                    [FirstName] [TEXT] NOT NULL,
-                    [LastName] [TEXT] NOT NULL,
-                    [Position] [INTEGER] NOT NULL,
-                    [DateOfBirth] [TEXT] NULL
+                CREATE TABLE IF NOT EXISTS [Task](
+                    [TaskId] [TEXT] NOT NULL PRIMARY KEY,
+                    [Title] [TEXT] NOT NULL,
+                    [Description] [TEXT] NOT NULL,
+                    [Completed] [INTEGER] NOT NULL,
+                    [DateCompleted] [TEXT] NULL
                 )
                 """
                 |> getConnection().ExecuteIgnore
-            return ()
         }
