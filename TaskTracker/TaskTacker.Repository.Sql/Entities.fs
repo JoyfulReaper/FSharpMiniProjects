@@ -20,8 +20,10 @@ module Entities =
           Completed = task.Completed
           DateCompleted = task.DateCompleted }
 
-    let toEntity (task: Task) : TaskEntity =
-        { TaskId = task.TaskId
+    let toEntity (task: Task) (generateId: bool) : TaskEntity =
+        { TaskId = match generateId with
+                   | true -> Guid.NewGuid()
+                   | false -> task.TaskId
           Title = task.Title
           Description = task.Description
           Completed = task.Completed

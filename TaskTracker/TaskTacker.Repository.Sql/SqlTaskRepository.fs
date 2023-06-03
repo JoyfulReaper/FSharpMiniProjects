@@ -41,7 +41,7 @@
 
         let createTask (task: Task) =
             async {
-                let taskToAdd = toEntity task
+                let taskToAdd = toEntity task true
 
                 do!
                     insert {
@@ -58,7 +58,7 @@
 
         let updateTask (task: Task) =
             async {
-                let taskToUpdate = toEntity task
+                let taskToUpdate = toEntity task false
                 do!
                     update {
                         for t in getTable do

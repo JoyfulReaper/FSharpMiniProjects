@@ -4,7 +4,7 @@ open System
 [<CLIMutable>]
 type TaskRequest = 
     { Title: string
-      Description: string option } 
+      Description: string } 
 
 [<CLIMutable>]
 type TaskUpdateRequest = 

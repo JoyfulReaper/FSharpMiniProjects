@@ -6,11 +6,11 @@ open Microsoft.AspNetCore.Http
 open TaskTracker.Repository
 open TaskTracker.Models
 
-let getTaskHandler : HttpHandler =
+let getTaskHandler taskId : HttpHandler =
     fun (next : HttpFunc) (ctx : HttpContext) ->
         task {
             let taskRepository = ctx.GetService<ITaskRepository>()
-            let taskId = ctx.BindQueryString<Guid>()
+            //let taskId = ctx.BindQueryString<Guid>()
             let! task = taskRepository.Get taskId
 
             return! json task next ctx

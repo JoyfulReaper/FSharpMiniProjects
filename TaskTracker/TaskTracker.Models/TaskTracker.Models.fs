@@ -12,6 +12,10 @@ module Task =
      let fromTaskRequest (taskRequest: TaskRequest) =
         { TaskId = Guid.Empty
           Title = taskRequest.Title
-          Description = taskRequest.Description
+          Description = 
+            match taskRequest.Description with
+            | null
+            | "" -> None
+            | _ -> Some taskRequest.Description
           Completed = false
           DateCompleted = None }

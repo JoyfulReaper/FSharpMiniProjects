@@ -9,8 +9,17 @@ open TaskTracker.Repository.Sql.TaskRepository
 
 let webApp =
     choose [
-        route "/ping"   >=> text "pong"
-        route "/"       >=> TaskService.getTaskHandler ]
+        subRoute "/task"
+            (choose [
+                GET >=>
+                    choose [
+                    routef "/%O" (fun taskId -> warbler (fun _ -> TaskService.getTaskHandler taskId))
+                ]
+                POST >=>
+                    choose [
+                        route "/" >=> warbler (fun _ -> TaskService.createTaskHandler)
+                    ]
+            ])]
 
 let configureApp (app : IApplicationBuilder) =
     // Add Giraffe to the ASP.NET Core pipeline
