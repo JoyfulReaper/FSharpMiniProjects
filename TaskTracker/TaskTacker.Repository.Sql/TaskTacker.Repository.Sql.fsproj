@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Entities.fs" />
     <Compile Include="Extensions.fs" />
     <Compile Include="DataAccess.fs" />
     <Compile Include="SqlTaskRepository.fs" />

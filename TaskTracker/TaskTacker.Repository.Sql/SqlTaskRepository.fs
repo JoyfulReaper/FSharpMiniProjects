@@ -1,44 +1,51 @@
 ﻿namespace TaskTracker.Repository.Sql
 
     module TaskRepository =
+        open TaskTracker.Repository.Sql.Entities.Entities
         open System
         open TaskTracker.Repository
         open TaskTracker.Models.Task
         open Dapper.FSharp.SQLite
         open TaskTracker.Repository.Sql.Connection
+        open TaskTracker.Repository.Sql.Entities
+
+        let getTable =
+            table'<TaskEntity> "Task"
 
         let getTask id =
             async {
-                let taskTable = table<Task>
                 let! result =
                         select {
-                            for p in taskTable do
+                            for p in getTable do
                             where (p.TaskId = id)
-                        } |> getConnection().SelectAsync<Task> |> Async.AwaitTask
+                        } |> getConnection().SelectAsync<TaskEntity> |> Async.AwaitTask
 
-                return result |> Seq.head
+                match Seq.length result with
+                | 0 -> return None
+                | _ -> return Some (result |> Seq.head |> toDomain)
             }
 
         let getAllTasks() =
             async {
-                let taskTable = table<Task>
                 let! result =
                         select {
-                            for p in taskTable do
+                            for p in getTable do
                             orderBy p.Title
-                        } |> getConnection().SelectAsync<Task> |> Async.AwaitTask
+                        } |> getConnection().SelectAsync<TaskEntity> |> Async.AwaitTask
 
-                return result |> Seq.toList
+
+                match Seq.length result with
+                | 0 -> return []
+                | _ -> return result |> Seq.map toDomain |> Seq.toList
             }
 
-        let createTask task =
+        let createTask (task: Task) =
             async {
-                let taskTable = table<Task>
-                let taskToAdd: Task = { task with TaskId = Guid.NewGuid() }
+                let taskToAdd = toEntity task
 
                 do!
                     insert {
-                        into taskTable
+                        into getTable
                         value taskToAdd
                     }
                     |> getConnection().InsertAsync
@@ -49,13 +56,13 @@
                 return result
             }
 
-        let updateTask task =
+        let updateTask (task: Task) =
             async {
-                let taskTable = table<Task>
+                let taskToUpdate = toEntity task
                 do!
                     update {
-                        for t in taskTable do
-                        set task
+                        for t in getTable do
+                        set taskToUpdate
                         where (t.TaskId = task.TaskId)
                     } |> getConnection().UpdateAsync |> Async.AwaitTask |> Async.Ignore
 
@@ -65,10 +72,9 @@
 
         let deleteTask id =
             async {
-                let taskTable = table<Task>
                 do!
                     delete {
-                        for p in taskTable do
+                        for p in getTable do
                         where (p.TaskId = id)
                     } |> getConnection().DeleteAsync |> Async.AwaitTask |> Async.Ignore
             }
@@ -76,7 +82,7 @@
         type SqlTaskRepository() =
             interface ITaskRepository with
                 member __.Get id = 
-                    getTask id
+                    getTask id 
                 member __.GetAll() =
                     getAllTasks()
                 member __.Create task =
