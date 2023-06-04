@@ -19,6 +19,7 @@ internal class TaskApplicationHostedService : IHostedService
     public async Task StartAsync(CancellationToken cancellationToken)
     {
         var test = await _taskClient.GetAsync("06bd0b89-1b4e-4a58-a3f3-f964748703f2");
+        var test2 = await _taskClient.GetAllAsync();
         throw new NotImplementedException();
     }
 

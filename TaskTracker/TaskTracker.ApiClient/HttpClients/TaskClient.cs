@@ -49,9 +49,10 @@ public class TaskClient : ITaskClient
         return GetAsync(Guid.Parse(id), cancellationToken);
     }
 
-    public Task<IEnumerable<TaskResponse>> GetAllAsync(CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<TaskResponse>> GetAllAsync(CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.GetFromJsonAsync<IEnumerable<TaskResponse>>(_httpClient.BaseAddress + "task", cancellationToken);
+        return response!;
     }
 
     public Task<TaskResponse> UpdateAsync(TaskUpdateRequest taskUpdateRequest, CancellationToken cancellationToken = default)
