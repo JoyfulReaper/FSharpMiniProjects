@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.33711.374
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TaskTracker.Service.Host", "TaskTracker.Service.Host\TaskTracker.Service.Host.fsproj", "{88F8306C-628D-478D-A019-B7FEE540BED4}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "TaskTracker.Service.Host", "TaskTracker.Service.Host\TaskTracker.Service.Host.fsproj", "{88F8306C-628D-478D-A019-B7FEE540BED4}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TaskTracker.Service", "TaskTracker.Service\TaskTracker.Service.fsproj", "{B4C5EEDE-3FB1-499C-A947-4E18B6BF7AF3}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "TaskTracker.Service", "TaskTracker.Service\TaskTracker.Service.fsproj", "{B4C5EEDE-3FB1-499C-A947-4E18B6BF7AF3}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TaskTracker.Models", "TaskTracker.Models\TaskTracker.Models.fsproj", "{4562BE91-5FE3-42D2-A931-F4C297F79D69}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "TaskTracker.Models", "TaskTracker.Models\TaskTracker.Models.fsproj", "{4562BE91-5FE3-42D2-A931-F4C297F79D69}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TaskTracker.Repository", "TaskTracker.Repository\TaskTracker.Repository.fsproj", "{8F4E9B78-1229-4511-BAE1-60E88342D6DE}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "TaskTracker.Repository", "TaskTracker.Repository\TaskTracker.Repository.fsproj", "{8F4E9B78-1229-4511-BAE1-60E88342D6DE}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TaskTacker.Repository.Sql", "TaskTacker.Repository.Sql\TaskTacker.Repository.Sql.fsproj", "{180C0F72-B51B-4F52-895B-0DB983D9909B}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "TaskTacker.Repository.Sql", "TaskTacker.Repository.Sql\TaskTacker.Repository.Sql.fsproj", "{180C0F72-B51B-4F52-895B-0DB983D9909B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTracker.ApiClient", "TaskTracker.ApiClient\TaskTracker.ApiClient.csproj", "{C1CC8EF5-5939-4EB4-862C-ED3F36A074B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{180C0F72-B51B-4F52-895B-0DB983D9909B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{180C0F72-B51B-4F52-895B-0DB983D9909B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{180C0F72-B51B-4F52-895B-0DB983D9909B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1CC8EF5-5939-4EB4-862C-ED3F36A074B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1CC8EF5-5939-4EB4-862C-ED3F36A074B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1CC8EF5-5939-4EB4-862C-ED3F36A074B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1CC8EF5-5939-4EB4-862C-ED3F36A074B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
