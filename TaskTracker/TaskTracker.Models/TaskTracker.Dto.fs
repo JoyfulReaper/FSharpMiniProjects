@@ -17,6 +17,10 @@ type TaskUpdateRequest =
 type TaskResponse = 
     { TaskId: string
       Title: string
-      Description: string option
+      Description: string
       Completed: bool
-      DateCompleted: DateTime option } 
+      DateCompleted: Nullable<DateTime> } 
+
+[<CLIMutable>]
+type ErrorResponse = 
+    { Message: string }

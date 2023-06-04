@@ -11,12 +11,11 @@ let getTaskHandler taskId : HttpHandler =
     fun (next : HttpFunc) (ctx : HttpContext) ->
         task {
             let taskRepository = ctx.GetService<ITaskRepository>()
-            //let taskId = ctx.BindQueryString<Guid>()
             let! result = taskRepository.Get taskId
 
             match result with
-            | Some task -> return! json task next ctx
-            | None -> return! (setStatusCode 404 >=> json "Task not found") next ctx
+            | Some task -> return! json (Task.toDto task) next ctx
+            | None -> return! (setStatusCode 404 >=> json {Message = "Task not found"}) next ctx
         }
 
 let createTaskHandler : HttpHandler =
