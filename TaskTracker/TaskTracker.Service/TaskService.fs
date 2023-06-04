@@ -4,7 +4,7 @@ open Giraffe
 open Microsoft.AspNetCore.Http
 open TaskTracker.Repository
 open TaskTracker.Models
-open Giraffe.HttpStatusCodeHandlers.RequestErrors
+open System
 
 let getAllTaskHandler : HttpHandler =
     fun (next : HttpFunc) (ctx : HttpContext) ->
@@ -66,5 +66,19 @@ let deleteTaskHandler (taskId: System.Guid) : HttpHandler =
             | Some existingTask -> 
                 let! deletedTask = taskRepository.Delete existingTask.TaskId
                 return! Successful.NO_CONTENT next ctx
+            | None -> return! RequestErrors.NOT_FOUND {Message = "Task not found"} next ctx
+        }
+
+let completeTaskHandler (taskId: System.Guid) : HttpHandler =
+    fun (next : HttpFunc) (ctx : HttpContext) ->
+        task {
+            let taskRepository = ctx.GetService<ITaskRepository>()
+            let! existingTask = taskRepository.Get taskId
+
+            match existingTask with
+            | Some existingTask -> 
+                let taskToUpdate = { existingTask with Completed = true; DateCompleted = Some(DateTime.Now) }
+                let! updatedTask = taskRepository.Update taskToUpdate
+                return! json (Task.toDto (Option.get updatedTask)) next ctx
             | None -> return! RequestErrors.NOT_FOUND {Message = "Task not found"} next ctx
         }
