@@ -14,10 +14,19 @@ let webApp =
                 GET >=>
                     choose [
                     routef "/%O" (fun taskId -> warbler (fun _ -> TaskService.getTaskHandler taskId))
+                    route "" >=> warbler (fun _ -> TaskService.getAllTaskHandler)
                 ]
                 POST >=>
                     choose [
-                        route "/" >=> warbler (fun _ -> TaskService.createTaskHandler)
+                        route "" >=> warbler (fun _ -> TaskService.createTaskHandler)
+                    ]
+                PUT >=>
+                    choose [
+                        routef "/%O" (fun taskId -> warbler (fun _ -> TaskService.updateTaskHandler taskId))
+                    ]
+                DELETE >=>
+                    choose [
+                        routef "/%O" (fun taskId -> warbler (fun _ -> TaskService.deleteTaskHandler taskId))
                     ]
             ])]
 
