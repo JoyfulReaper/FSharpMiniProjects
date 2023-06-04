@@ -1,11 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
 using TaskTracker.ApiClient.Constants;
 using TaskTracker.ApiClient.Contracts;
 using TaskTracker.ApiClient.Options;
@@ -28,14 +23,19 @@ public class TaskClient : ITaskClient
         _httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(TaskClientConstants.UserAgentComment));
     }
 
-    public Task<TaskResponse> CreateAsync(TaskRequest taskCreateRequest, CancellationToken cancellationToken = default)
+    public async Task<TaskResponse> CreateAsync(TaskRequest taskCreateRequest, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.PostAsJsonAsync(_httpClient.BaseAddress + "task", taskCreateRequest, cancellationToken);
+        response.EnsureSuccessStatusCode();
+        var taskResponse = await response.Content.ReadFromJsonAsync<TaskResponse>(cancellationToken: cancellationToken);
+
+        return taskResponse!;
     }
 
-    public Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.DeleteAsync(_httpClient.BaseAddress + $"task/{id}", cancellationToken);
+        response.EnsureSuccessStatusCode();
     }
 
     public async Task<TaskResponse> GetAsync(Guid id, CancellationToken cancellationToken = default)
@@ -55,8 +55,23 @@ public class TaskClient : ITaskClient
         return response!;
     }
 
-    public Task<TaskResponse> UpdateAsync(TaskUpdateRequest taskUpdateRequest, CancellationToken cancellationToken = default)
+    public async Task<TaskResponse> UpdateAsync(TaskUpdateRequest taskUpdateRequest, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.PutAsJsonAsync(_httpClient.BaseAddress + "task", taskUpdateRequest, cancellationToken);
+        response.EnsureSuccessStatusCode();
+        var taskResponse = await response.Content.ReadFromJsonAsync<TaskResponse>(cancellationToken: cancellationToken);
+
+        return taskResponse!;
+    }
+
+    public Task CompleteAsync(Guid Id, CancellationToken cancellationToken = default)
+    {
+        var response = _httpClient.PostAsync(_httpClient.BaseAddress + $"task/{Id}/complete", null, cancellationToken);
+        return response;
+    }
+
+    public Task CompleteAsync(string Id, CancellationToken cancellationToken = default)
+    {
+        return CompleteAsync(Guid.Parse(Id), cancellationToken);
     }
 }

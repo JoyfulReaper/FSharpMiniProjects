@@ -9,4 +9,6 @@ public interface ITaskClient
     Task<TaskResponse> CreateAsync(TaskRequest taskCreateRequest, CancellationToken cancellationToken = default);
     Task<TaskResponse> UpdateAsync(TaskUpdateRequest taskUpdateRequest, CancellationToken cancellationToken = default);
     Task DeleteAsync(Guid id, CancellationToken cancellationToken = default);
+    Task CompleteAsync(Guid Id, CancellationToken cancellationToken = default);
+    Task CompleteAsync(string Id, CancellationToken cancellationToken = default);
 }

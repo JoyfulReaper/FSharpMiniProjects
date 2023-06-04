@@ -19,7 +19,7 @@ let webApp =
                 POST >=>
                     choose [
                         route "" >=> warbler (fun _ -> TaskService.createTaskHandler)
-                        routef "complete/%O" (fun taskId -> warbler (fun _ -> TaskService.completeTaskHandler taskId))
+                        routef "/%O/complete" (fun taskId -> warbler (fun _ -> TaskService.completeTaskHandler taskId))
                     ]
                 PUT >=>
                     choose [
