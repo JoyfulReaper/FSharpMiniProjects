@@ -28,28 +28,33 @@ public class TaskClient : ITaskClient
         _httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(TaskClientConstants.UserAgentComment));
     }
 
-    public Task<TaskResponse> Create(TaskRequest taskCreateRequest)
+    public Task<TaskResponse> CreateAsync(TaskRequest taskCreateRequest, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public Task Delete(Guid id)
+    public Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<TaskResponse> Get(Guid id, CancellationToken cancellationToken = default)
+    public async Task<TaskResponse> GetAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        var response = await _httpClient.GetFromJsonAsync<TaskResponse>(_httpClient.BaseAddress + $"/task/{id}", cancellationToken);
+        var response = await _httpClient.GetFromJsonAsync<TaskResponse>(_httpClient.BaseAddress + $"task/{id}", cancellationToken);
         return response!;
     }
 
-    public Task<IEnumerable<TaskResponse>> GetAll()
+    public Task<TaskResponse> GetAsync(string id, CancellationToken cancellationToken = default)
+    {
+        return GetAsync(Guid.Parse(id), cancellationToken);
+    }
+
+    public Task<IEnumerable<TaskResponse>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public Task<TaskResponse> Update(TaskUpdateRequest taskUpdateRequest)
+    public Task<TaskResponse> UpdateAsync(TaskUpdateRequest taskUpdateRequest, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }

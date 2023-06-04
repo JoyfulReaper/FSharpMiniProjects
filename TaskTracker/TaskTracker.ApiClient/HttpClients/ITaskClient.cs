@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TaskTracker.ApiClient.Contracts;
+﻿using TaskTracker.ApiClient.Contracts;
 
 namespace TaskTracker.ApiClient.HttpClients;
 public interface ITaskClient
 {
-    Task<IEnumerable<TaskResponse>> GetAll();
-    Task<TaskResponse> Get(Guid id);
-    Task<TaskResponse> Create(TaskRequest taskCreateRequest);
-    Task<TaskResponse> Update(TaskUpdateRequest taskUpdateRequest);
-    Task Delete(Guid id);
+    Task<IEnumerable<TaskResponse>> GetAllAsync(CancellationToken cancellationToken = default);
+    Task<TaskResponse> GetAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<TaskResponse> GetAsync(string id, CancellationToken cancellationToken = default);
+    Task<TaskResponse> CreateAsync(TaskRequest taskCreateRequest, CancellationToken cancellationToken = default);
+    Task<TaskResponse> UpdateAsync(TaskUpdateRequest taskUpdateRequest, CancellationToken cancellationToken = default);
+    Task DeleteAsync(Guid id, CancellationToken cancellationToken = default);
 }

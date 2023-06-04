@@ -13,7 +13,7 @@ public static class DependencyInjection
         services.Configure<TaskApiClientOptions>(
             configuration.GetSection(nameof(TaskApiClientOptions)));
 
-        services.AddTransient<ITaskClient, TaskClient>();
+        services.AddHttpClient<ITaskClient, TaskClient>();
 
         return services;
     }
