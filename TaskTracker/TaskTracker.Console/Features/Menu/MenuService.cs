@@ -1,8 +1,6 @@
-﻿using System;
-using TaskTracker.ApiClient.Contracts;
+﻿using TaskTracker.ApiClient.Contracts;
 using TaskTracker.ApiClient.HttpClients;
 using TaskTracker.Console.Common.Enums;
-using TaskTracker.Console.Features.Tasks;
 
 namespace TaskTracker.Console.Features.Menu;
 
@@ -160,13 +158,13 @@ public class MenuService
     {
         if (task.Completed)
         {
-            await _taskClient.CompleteAsync(task.TaskId);
-            System.Console.WriteLine("Task Completed!");
+            await _taskClient.UncompleteAsync(task.TaskId);
+            System.Console.WriteLine("Task Uncompleted!");
         }
         else
         {
-            await _taskClient.UncompleteAsync(task.TaskId);
-            System.Console.WriteLine("Task Uncompleted!");
+            await _taskClient.CompleteAsync(task.TaskId);
+            System.Console.WriteLine("Task Completed!");
         }
     }
 

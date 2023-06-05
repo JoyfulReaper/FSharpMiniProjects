@@ -57,7 +57,7 @@ public class TaskClient : ITaskClient
 
     public async Task<TaskResponse> UpdateAsync(TaskUpdateRequest taskUpdateRequest, CancellationToken cancellationToken = default)
     {
-        var response = await _httpClient.PutAsJsonAsync(_httpClient.BaseAddress + "task", taskUpdateRequest, cancellationToken);
+        var response = await _httpClient.PutAsJsonAsync(_httpClient.BaseAddress + $"task/{taskUpdateRequest.TaskId}", taskUpdateRequest, cancellationToken);
         response.EnsureSuccessStatusCode();
         var taskResponse = await response.Content.ReadFromJsonAsync<TaskResponse>(cancellationToken: cancellationToken);
 
