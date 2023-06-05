@@ -74,4 +74,24 @@ public class TaskClient : ITaskClient
     {
         return CompleteAsync(Guid.Parse(Id), cancellationToken);
     }
+
+    public async Task UncompleteAsync(Guid Id, CancellationToken cancellationToken = default)
+    {
+        var task = await GetAsync(Id, cancellationToken);
+        if (task.Completed)
+        {
+            var updateRequest = new TaskUpdateRequest(task.TaskId.ToString(), task.Title, task.Description, false, null);
+            await UpdateAsync(updateRequest, cancellationToken);
+        }
+    }
+
+    public async Task UncompleteAsync(string Id, CancellationToken cancellationToken = default)
+    {
+        await UncompleteAsync(Guid.Parse(Id), cancellationToken);
+    }
+
+    public async Task DeleteAsync(string id, CancellationToken cancellationToken = default)
+    {
+        await DeleteAsync(Guid.Parse(id), cancellationToken);
+    }
 }

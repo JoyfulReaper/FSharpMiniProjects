@@ -16,17 +16,11 @@ internal class TaskApplicationHostedService : IHostedService
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        _menuService.DisplayHeader();
+        MenuService.DisplayHeader();
         while (true)
         {
-            _menuService.DisplayMenu();
-            var option = _menuService.GetOption();
-            await _menuService.ProcessOptionAsync(option);
+            await _menuService.DisplayMenuAsync();
         }
-
-        //var test = await _taskClient.GetAsync("06bd0b89-1b4e-4a58-a3f3-f964748703f2", cancellationToken);
-        //var test2 = await _taskClient.GetAllAsync(cancellationToken);
-        //throw new NotImplementedException();
     }
 
     public Task StopAsync(CancellationToken cancellationToken)

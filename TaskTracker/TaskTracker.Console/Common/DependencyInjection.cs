@@ -16,7 +16,6 @@ internal static class DependencyInjection
                 services.AddHostedService<TaskApplicationHostedService>();
                 services.AddTaskClient(hostContext.Configuration);
                 services.AddTransient<MenuService>();
-                services.AddTransient<TaskService>();
             })
             .ConfigureLogging(logging => {
                 logging.SetMinimumLevel(LogLevel.None);
