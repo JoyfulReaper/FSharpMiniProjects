@@ -28,7 +28,7 @@ module DatabaseCreator =
                 CREATE TABLE IF NOT EXISTS [Task](
                     [TaskId] [TEXT] NOT NULL PRIMARY KEY,
                     [Title] [TEXT] NOT NULL,
-                    [Description] [TEXT] NOT NULL,
+                    [Description] [TEXT] NULL,
                     [Completed] [INTEGER] NOT NULL,
                     [DateCompleted] [TEXT] NULL
                 )
