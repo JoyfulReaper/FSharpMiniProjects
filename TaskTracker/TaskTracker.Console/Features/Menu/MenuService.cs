@@ -97,6 +97,7 @@ public class MenuService
             taskDict.Add(taskNumber++, t);
         }
 
+        System.Console.WriteLine($"0: Go back");
         foreach (var t in taskDict)
         {
             System.Console.WriteLine($"Task #{t.Key}: {t.Value.Title}");
@@ -104,6 +105,10 @@ public class MenuService
 
         System.Console.Write("Choose a task: ");
         var selectedTaskNumber = int.Parse(System.Console.ReadLine());
+        if (selectedTaskNumber == 0)
+        {
+            await DisplayMenuAsync();
+        }
 
         var task = await _taskClient.GetAsync(taskDict[selectedTaskNumber].TaskId);
 
@@ -152,6 +157,8 @@ public class MenuService
                     break;
                 }
         }
+
+        DisplayTaskResponse(await _taskClient.GetAsync(task.TaskId));
     }
 
     private async Task InvertCompletionAsync(TaskResponse task)
