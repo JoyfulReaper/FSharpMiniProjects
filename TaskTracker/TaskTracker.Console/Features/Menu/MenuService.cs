@@ -50,7 +50,7 @@ internal class MenuService
         switch (option)
         {
             case MenuChoice.CreateTask:
-                System.Console.WriteLine("Create task");
+                await _taskService.CreateTaskAsync();
                 break;
             case MenuChoice.ViewTasks:
                 await _taskService.ListTasksAsync();
