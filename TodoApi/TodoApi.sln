@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TodoApi", "TodoApi\TodoApi.fsproj", "{FEA5FE53-A4D7-4D65-A04A-B51C7C70AAE4}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Todo.Models", "Todo.Models\Todo.Models.fsproj", "{005A1D2A-F525-4BF6-ADA6-3F6ED3EE2D17}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Todo.ListRepository", "Todo.ListRepository\Todo.ListRepository.fsproj", "{513D0F1E-0A97-4EC8-9A40-E38AA6E4CDF2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FEA5FE53-A4D7-4D65-A04A-B51C7C70AAE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEA5FE53-A4D7-4D65-A04A-B51C7C70AAE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEA5FE53-A4D7-4D65-A04A-B51C7C70AAE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEA5FE53-A4D7-4D65-A04A-B51C7C70AAE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{005A1D2A-F525-4BF6-ADA6-3F6ED3EE2D17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{005A1D2A-F525-4BF6-ADA6-3F6ED3EE2D17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{005A1D2A-F525-4BF6-ADA6-3F6ED3EE2D17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{005A1D2A-F525-4BF6-ADA6-3F6ED3EE2D17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{513D0F1E-0A97-4EC8-9A40-E38AA6E4CDF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{513D0F1E-0A97-4EC8-9A40-E38AA6E4CDF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{513D0F1E-0A97-4EC8-9A40-E38AA6E4CDF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{513D0F1E-0A97-4EC8-9A40-E38AA6E4CDF2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
