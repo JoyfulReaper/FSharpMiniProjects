@@ -22,4 +22,9 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Todo.ListRepository\Todo.ListRepository.fsproj" />
+      <ProjectReference Include="..\Todo.Models\Todo.Models.fsproj" />
+    </ItemGroup>
 </Project>

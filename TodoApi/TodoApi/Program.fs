@@ -47,7 +47,7 @@ let endpoints =
         GET [
             route "/" (htmlView (Views.index ()))
         ]
-        subRoute "/api/todo" Todos.apiTodoRoutes
+        subRoute "/api/todos" Todos.apiTodoRoutes
     ]
 
 // ---------------------------------

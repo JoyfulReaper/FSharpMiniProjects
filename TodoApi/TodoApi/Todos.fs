@@ -4,26 +4,68 @@ open System
 open Giraffe
 open Giraffe.EndpointRouting
 open Microsoft.AspNetCore.Http
+open Todo.Models
+open Todo.Repository
+open FsToolkit.ErrorHandling
+
+let getMessage (errors:ValidationError list) =
+    let errors = errors |> List.map (fun e -> e.Message)
+    String.Join (Environment.NewLine, errors)
 
 module Handlers =
     let viewTodos =
         fun (next:HttpFunc) (ctx:HttpContext) ->
-            ctx.WriteTextAsync("Viewing all todos")
-        
+            TodoRepository.getTodos()
+            |> List.map Todo.toDto
+            |> ctx.WriteJsonAsync
+            
+    let viewTodo (id:int) =
+        fun (next:HttpFunc) (ctx:HttpContext) ->
+            task {
+                let id = TodoId.create id 
+                match id with
+                | Error e ->
+                    return! ServerErrors.INTERNAL_ERROR "Failed to create id" next ctx
+                | Ok id ->
+                    match TodoRepository.getTodo id with
+                    | None ->
+                        return! RequestErrors.NOT_FOUND "Todo not found" next ctx
+                    | Some todo ->
+                        return! Successful.OK (todo |> Todo.toDto) next ctx
+            }
+            
+
+
+    let createTodo =
+        fun (next:HttpFunc) (ctx:HttpContext) ->
+            task {
+                let! todo = ctx.BindJsonAsync<Dtos.Todo>()
+                let model = Todo.ofDto todo
+                match model with
+                | Error e ->
+                    return! RequestErrors.BAD_REQUEST (getMessage e) next ctx
+                | Ok model ->
+                    match TodoRepository.addTodo model with
+                    | Error e ->
+                        return! RequestErrors.BAD_REQUEST (e.Message) next ctx
+                    | Ok () ->
+                        return! Successful.CREATED (model |> Todo.toDto) next ctx
+            }
+            
 
 let apiTodoRoutes =
     [
         GET [
-            //routef "/%O" Handlers.viewTodo
+            routef "/%i" Handlers.viewTodo
             route "" Handlers.viewTodos
         ]
-        // POST [
-        //     route "" Handlers.createTodo
-        // ]
-        // PUT [
-        //     routef "/%O" Handlers.updateTodo
-        // ]
-        // DELETE [
-        //     routef "/%O" Handlers.deleteTodo
-        // ]
+        POST [
+            route "" Handlers.createTodo
+        ]
+        PUT [
+            //routef "/%O" Handlers.updateTodo
+        ]
+        DELETE [
+            //routef "/%O" Handlers.deleteTodo
+        ]
     ]

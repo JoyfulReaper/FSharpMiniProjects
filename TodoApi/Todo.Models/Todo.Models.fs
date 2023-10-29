@@ -1,6 +1,5 @@
 namespace Todo.Models
 
-open FsToolkit.ErrorHandling.ResultCE
 open FsToolkit.ErrorHandling.ValidationCE
 open System
 
@@ -70,7 +69,7 @@ type Todo =
         Completed: bool
     }
 module Todo =
-    let ofDto (dto: Dtos.Todo) =
+    let ofDto (dto: Dtos.Todo) : Result<Todo, ValidationError list>=
         validation {
             let! id = 
                 dto.Id
