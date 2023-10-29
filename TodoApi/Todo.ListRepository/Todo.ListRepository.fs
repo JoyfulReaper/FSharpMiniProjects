@@ -46,13 +46,20 @@ module TodoRepository =
         }
         
 
-    let removeTodo (todo : Todo) =
-        if List.exists (fun t -> t.Id = todo.Id) todos then
-            todos <- todos |> List.filter (fun t -> t.Id <> todo.Id)
+    let removeTodo (todoId : TodoId) =
+        if List.exists (fun t -> t.Id = todoId) todos then
+            todos <- todos |> List.filter (fun t -> t.Id <> todoId)
             Ok ()
         else
-            TodoDoesNotExist (todo.Title |> Title.value) |> Error
+            TodoDoesNotExist (todoId |> TodoId.value |> string) |> Error
 
+    let updateTodo (todo : Todo) =
+        if List.exists (fun t -> t.Id = todo.Id) todos then
+            todos <- todos |> List.map (fun t -> if t.Id = todo.Id then todo else t)
+            Ok ()
+        else
+            TodoDoesNotExist (todo.Id |> TodoId.value |> string) |> Error
+    
     let getTodos () =
         todos
 
