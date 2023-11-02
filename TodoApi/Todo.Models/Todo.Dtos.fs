@@ -1,5 +1,7 @@
 namespace Todo.Models.Dtos
 
+open System
+
 [<CLIMutable>]
 type Todo = {
     Id: int
@@ -8,3 +10,9 @@ type Todo = {
     Completed: bool
 }
 
+[<CLIMutable>]
+type TodoRequest = {
+    Title: string
+    Description: string
+    Completed: Nullable<bool>
+}

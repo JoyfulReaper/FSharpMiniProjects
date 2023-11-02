@@ -102,3 +102,37 @@ module Todo =
 
     let toString (model: Todo) =
         sprintf "%i: %s - %s" (TodoId.value model.Id) (Title.value model.Title) (Description.value model.Description)
+        
+type TodoRequest =
+    {
+        Title: Title
+        Description: Description
+        Completed: bool option
+    }
+    
+module TodoRequest =
+    let ofDto (dto: Dtos.TodoRequest) : Result<TodoRequest, ValidationError list> =
+        validation {
+            let! title = 
+                dto.Title
+                |> Title.create
+                |> Result.mapError (fun ex -> [ex])
+            and! description = 
+                dto.Description
+                |> Description.create
+                |> Result.mapError (fun ex -> [ex])
+            
+            return {
+                Title = title
+                Description = description
+                Completed =  Option.ofNullable dto.Completed
+            }
+        }
+        
+    let toTodo (id: TodoId) (model: TodoRequest)  : Todo =
+        {
+            Id = id
+            Title = model.Title
+            Description = model.Description
+            Completed = model.Completed |> Option.defaultValue false
+        }

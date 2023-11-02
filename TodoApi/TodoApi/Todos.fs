@@ -37,8 +37,8 @@ module Handlers =
     let createTodo =
         fun (next:HttpFunc) (ctx:HttpContext) ->
             task {
-                let! todo = ctx.BindJsonAsync<Dtos.Todo>()
-                let model = Todo.ofDto todo
+                let! request = ctx.BindJsonAsync<Dtos.TodoRequest>()
+                let model = TodoRequest.ofDto request
                 match model with
                 | Error e ->
                     return! RequestErrors.BAD_REQUEST (getMessage e) next ctx
@@ -46,8 +46,8 @@ module Handlers =
                     match TodoRepository.addTodo model with
                     | Error e ->
                         return! RequestErrors.BAD_REQUEST (e.Message) next ctx
-                    | Ok () ->
-                        return! Successful.CREATED (model |> Todo.toDto) next ctx
+                    | Ok todo ->
+                        return! Successful.CREATED (todo |> Todo.toDto) next ctx
             }
     
     let deleteTodo (id:int) =

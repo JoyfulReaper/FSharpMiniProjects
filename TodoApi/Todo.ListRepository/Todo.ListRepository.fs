@@ -34,18 +34,18 @@ module TodoRepository =
         }
         
 
-    let addTodo (todo : Todo) =
+    let addTodo (request : TodoRequest) =
         result {
-            if List.exists (fun t -> t.Title = todo.Title) todos then
-                return! TodoAlreadyExists (todo.Title |> Title.value) |> Error
-            else
-                let! nextId = getNextId ()
-                let todo = { todo with Id = nextId }
-                todos <- todo :: todos
-                return! Ok ()
+            // check if a todo with the same name already exists
+               if todos |> List.exists (fun t -> t.Title = request.Title) then
+                   return! TodoAlreadyExists (request.Title |> Title.value) |> Error
+                else
+                    let! todoId = getNextId ()
+                    let todo =  request |> TodoRequest.toTodo todoId
+                    todos <- todo :: todos
+                    return! Ok todo
         }
         
-
     let removeTodo (todoId : TodoId) =
         if List.exists (fun t -> t.Id = todoId) todos then
             todos <- todos |> List.filter (fun t -> t.Id <> todoId)
