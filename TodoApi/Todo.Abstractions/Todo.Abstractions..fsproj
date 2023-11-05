@@ -2,16 +2,16 @@
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
+        <RootNamespace>Todo.Abstractions_</RootNamespace>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
-      <Compile Include="Todo.ListRepository.fs" />
+      <ProjectReference Include="..\Todo.Models\Todo.Models.fsproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Todo.Abstractions\Todo.Abstractions..fsproj" />
-      <ProjectReference Include="..\Todo.Models\Todo.Models.fsproj" />
+      <Compile Include="Repository.fs" />
     </ItemGroup>
 
 </Project>

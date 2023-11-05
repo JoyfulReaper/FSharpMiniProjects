@@ -1,17 +1,8 @@
-namespace Todo.Repository
+namespace Todo.ListRepository
 
 open Todo.Models
 open FsToolkit.ErrorHandling.ResultCE
-
-type RepositoryError =
-    | TodoAlreadyExists of string
-    | TodoDoesNotExist of string
-    | ValidationError of ValidationError
-    member this.Message =
-        match this with
-        | ValidationError e -> e.Message
-        | TodoAlreadyExists msg -> msg |> sprintf "Todo Already Exists: %s"
-        | TodoDoesNotExist msg -> msg |> sprintf "Todo Does Not Exist: %s"
+open Todo.Abstractions
 
 module Result =
     let ofOption error (option : 'a option) =
@@ -33,10 +24,8 @@ module TodoRepository =
                 return! Ok nextId
         }
         
-
     let addTodo (request : TodoRequest) =
         result {
-            // check if a todo with the same name already exists
                if todos |> List.exists (fun t -> t.Title = request.Title) then
                    return! TodoAlreadyExists (request.Title |> Title.value) |> Error
                 else

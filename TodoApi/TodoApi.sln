@@ -6,6 +6,12 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Todo.Models", "Todo.Models\
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Todo.ListRepository", "Todo.ListRepository\Todo.ListRepository.fsproj", "{513D0F1E-0A97-4EC8-9A40-E38AA6E4CDF2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.SqlRepository.Entities", "Todo.SqlRepository.Entities\Todo.SqlRepository.Entities.csproj", "{45D07BE2-2350-41DB-8ABB-B7386B25B26A}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Todo.SqliteRepository.fs", "Todo.SqliteRepository.fs\Todo.SqliteRepository.fs.fsproj", "{710F64A1-BE83-408A-A7AE-9AFF0A8FE256}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Todo.Abstractions.", "Todo.Abstractions\Todo.Abstractions..fsproj", "{060ED1B9-3672-4AAA-AAE5-2E4926EC1FC1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +30,17 @@ Global
 		{513D0F1E-0A97-4EC8-9A40-E38AA6E4CDF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{513D0F1E-0A97-4EC8-9A40-E38AA6E4CDF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{513D0F1E-0A97-4EC8-9A40-E38AA6E4CDF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45D07BE2-2350-41DB-8ABB-B7386B25B26A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45D07BE2-2350-41DB-8ABB-B7386B25B26A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45D07BE2-2350-41DB-8ABB-B7386B25B26A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45D07BE2-2350-41DB-8ABB-B7386B25B26A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{710F64A1-BE83-408A-A7AE-9AFF0A8FE256}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{710F64A1-BE83-408A-A7AE-9AFF0A8FE256}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{710F64A1-BE83-408A-A7AE-9AFF0A8FE256}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{710F64A1-BE83-408A-A7AE-9AFF0A8FE256}.Release|Any CPU.Build.0 = Release|Any CPU
+		{060ED1B9-3672-4AAA-AAE5-2E4926EC1FC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{060ED1B9-3672-4AAA-AAE5-2E4926EC1FC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{060ED1B9-3672-4AAA-AAE5-2E4926EC1FC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{060ED1B9-3672-4AAA-AAE5-2E4926EC1FC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

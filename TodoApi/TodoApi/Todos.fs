@@ -5,7 +5,7 @@ open Giraffe
 open Giraffe.EndpointRouting
 open Microsoft.AspNetCore.Http
 open Todo.Models
-open Todo.Repository
+open Todo.ListRepository
 open FsToolkit.ErrorHandling
 
 let getMessage (errors:ValidationError list) =

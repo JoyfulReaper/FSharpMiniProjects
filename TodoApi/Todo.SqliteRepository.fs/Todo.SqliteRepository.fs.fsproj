@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Todo.Abstractions\Todo.Abstractions..fsproj" />
+      <ProjectReference Include="..\Todo.Models\Todo.Models.fsproj" />
+      <ProjectReference Include="..\Todo.SqlRepository.Entities\Todo.SqlRepository.Entities.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Include="TodoEntityMapping.fs" />
+      <Compile Include="Todo.SqliteRepository.fs" />
+    </ItemGroup>
+
+</Project>
