@@ -10,6 +10,12 @@ type TestClass () =
 
     [<TestMethod>]
     member this.CanCreate () =
-        let result = Item.createOre Dirt (Some 2)
+        let result = Item.createOre Dirt 2
         printfn "%A" result
-        Assert.IsTrue(true);
+        Assert.IsTrue(true)
+        
+    [<TestMethod>]
+    member this.CanMine () =
+        let result = Mining.goMining ()
+        printfn "%A" result
+        Assert.IsTrue(true)
