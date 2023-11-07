@@ -20,6 +20,7 @@ and Item = {
     Material: Material option
     Inventory: Inventory option
     Quantity: int
+    Value: int
 }
 
 type Player = {
@@ -44,6 +45,19 @@ module Item =
             Material = Some Stone
             Inventory = None
             Quantity = quantity
+            Value = 1
+        }
+        
+    let createDiamond quantity =
+        {
+            Id = ItemIds.DiamondOre |> int
+            Name = "Diamond Ore"
+            Description = sprintf "A beautiful sparkling diamond."
+            CraftRecipe = None
+            Material = Some Diamond
+            Inventory = None
+            Quantity = quantity
+            Value = 25
         }
         
     let createOre (material:Material) (quantity:int) =
@@ -59,6 +73,7 @@ module Item =
                         Material = Some Copper
                         Inventory = None
                         Quantity = quantity
+                        Value = 3
                     }
                 | Iron ->
                    Ok {
@@ -69,6 +84,7 @@ module Item =
                         Material = Some Iron
                         Inventory = None
                         Quantity = quantity
+                        Value = 5
                     }
                 | Gold ->
                    Ok {
@@ -79,16 +95,7 @@ module Item =
                         Material = Some Gold
                         Inventory = None
                         Quantity = quantity
-                    }
-                | Diamond ->
-                    Ok {
-                        Id = ItemIds.DiamondOre |> int
-                        Name = "Diamond Ore"
-                        Description = sprintf "A piece of diamond ore."
-                        CraftRecipe = None
-                        Material = Some Diamond
-                        Inventory = None
-                        Quantity = quantity
+                        Value = 15
                     }
                 | _ ->
                     Error <| InvalidMaterial (string material)

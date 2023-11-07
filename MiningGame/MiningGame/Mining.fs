@@ -20,7 +20,7 @@ module Mining =
             
             let! ore =
                 (if randNum <= 5 then
-                    Item.createOre Diamond 1
+                    Ok <| Item.createDiamond 1
                 elif randNum <= 15 then
                     Item.createOre Gold 1
                 elif randNum <= 30 then
@@ -28,7 +28,7 @@ module Mining =
                 elif randNum <= 60 then
                     Item.createOre Copper 1
                 else
-                    Ok (Item.createStone 1)) |> Result.mapError ModelError
+                    Ok <| Item.createStone 1) |> Result.mapError ModelError
             return ore   
         }
         
