@@ -34,6 +34,10 @@ type ItemIds =
     | IronOre = 4
     | GoldOre = 5
     | DiamondOre = 6
+    | CopperIngot = 7
+    | IronIngot = 8
+    | GoldIngot = 9
+    
 
 module Item =
     let createStone quantity =
@@ -58,6 +62,47 @@ module Item =
             Inventory = None
             Quantity = quantity
             Value = 25
+        }
+        
+    let createIngot (material:Material) (quantity:int) =
+        result {
+            return!
+                match material with
+                | Copper ->
+                    Ok {
+                        Id = ItemIds.CopperIngot |> int
+                        Name = "Copper Ingot"
+                        Description = sprintf "A piece of copper ingot."
+                        CraftRecipe = None
+                        Material = Some Copper
+                        Inventory = None
+                        Quantity = quantity
+                        Value = 4
+                    }
+                | Iron ->
+                    Ok {
+                        Id = ItemIds.IronIngot |> int
+                        Name = "Iron Ingot"
+                        Description = sprintf "A piece of iron ingot."
+                        CraftRecipe = None
+                        Material = Some Iron
+                        Inventory = None
+                        Quantity = quantity
+                        Value = 6
+                    }
+                | Gold ->
+                    Ok {
+                        Id = ItemIds.GoldIngot |> int
+                        Name = "Gold Ingot"
+                        Description = sprintf "A piece of gold ingot."
+                        CraftRecipe = None
+                        Material = Some Gold
+                        Inventory = None
+                        Quantity = quantity
+                        Value = 20
+                    }
+                | _ ->
+                    Error <| InvalidMaterial (string material)
         }
         
     let createOre (material:Material) (quantity:int) =
