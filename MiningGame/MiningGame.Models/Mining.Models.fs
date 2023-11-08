@@ -11,6 +11,22 @@ type Material =
     | Gold
     | Diamond
 
+type PositiveQuantity = private PositiveQuantity of int
+module PositiveQuantity = 
+    let create (quantity:int) =
+        if quantity < 0 then
+            Error <| InvalidQuantity quantity
+        else
+            Ok <| PositiveQuantity quantity
+
+    let add (PositiveQuantity quantity) (PositiveQuantity quantityToAdd) =
+         quantity + quantityToAdd |> create
+
+    let subtract (PositiveQuantity quantity) (PositiveQuantity quantityToSubtract) =
+        quantity - quantityToSubtract |> create
+
+    let toInt (PositiveQuantity quantity) = quantity
+
 type Inventory = Item list
 and Item = {
     Id: int
@@ -19,8 +35,9 @@ and Item = {
     CraftRecipe: Item list option
     Material: Material option
     Inventory: Inventory option
-    Quantity: int
+    Quantity: PositiveQuantity
     Value: int
+    Stackable: bool
 }
 
 type Player = {
@@ -52,6 +69,7 @@ module Item =
             Inventory = None
             Quantity = quantity
             Value = 1
+            Stackable = true 
         }
         
     let createDiamond quantity =
@@ -64,9 +82,10 @@ module Item =
             Inventory = None
             Quantity = quantity
             Value = 25
+            Stackable = true 
         }
         
-    let createIngot (material:Material) (quantity:int) =
+    let createIngot (material:Material) (quantity:PositiveQuantity) =
         result {
             return!
                 match material with
@@ -80,6 +99,7 @@ module Item =
                         Inventory = None
                         Quantity = quantity
                         Value = 4
+                        Stackable = true 
                     }
                 | Iron ->
                     Ok {
@@ -91,6 +111,7 @@ module Item =
                         Inventory = None
                         Quantity = quantity
                         Value = 6
+                        Stackable = true 
                     }
                 | Gold ->
                     Ok {
@@ -102,12 +123,13 @@ module Item =
                         Inventory = None
                         Quantity = quantity
                         Value = 20
+                        Stackable = true 
                     }
                 | _ ->
                     Error <| InvalidMaterial (string material)
         }
         
-    let createOre (material:Material) (quantity:int) =
+    let createOre (material:Material) (quantity:PositiveQuantity) =
         result {
             return!
                 match material with
@@ -121,6 +143,7 @@ module Item =
                         Inventory = None
                         Quantity = quantity
                         Value = 3
+                        Stackable = true 
                     }
                 | Iron ->
                    Ok {
@@ -132,6 +155,7 @@ module Item =
                         Inventory = None
                         Quantity = quantity
                         Value = 5
+                        Stackable = true 
                     }
                 | Gold ->
                    Ok {
@@ -143,6 +167,7 @@ module Item =
                         Inventory = None
                         Quantity = quantity
                         Value = 15
+                        Stackable = true 
                     }
                 | _ ->
                     Error <| InvalidMaterial (string material)
