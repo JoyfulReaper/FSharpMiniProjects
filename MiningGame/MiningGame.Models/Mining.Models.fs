@@ -24,6 +24,8 @@ and Item = {
 }
 
 type Player = {
+    Name: string
+    Money: int
     Inventory: Inventory
 }
 
