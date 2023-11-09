@@ -17,7 +17,7 @@ module Application =
             | Error e ->
                 printfn "Something went wrong: %s" e.Message
             | Ok ore ->
-                printfn "You mined %i %s." (ore.IntQuantity()) ore.Name
+                printfn "You mined %i %s." (ore.Quantity) ore.Name
                 
         }
     

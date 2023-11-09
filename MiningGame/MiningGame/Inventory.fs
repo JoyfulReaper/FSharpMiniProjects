@@ -32,9 +32,7 @@ module Inventory =
             |> List.map (fun (id, items) ->
                 let quantity =
                     items
-                    |> List.sumBy (fun item -> item.IntQuantity())
-                    |> PositiveQuantity.create
-                    |> Result.defaultValue PositiveQuantity.one
+                    |> List.sumBy (fun i -> i.Quantity)
                 { item with Quantity = quantity} )
                 
         let newInventory =
@@ -49,15 +47,7 @@ module Inventory =
                 inventory
                 |> List.tryFind (fun item -> item.Id = item.Id)
                 |> Result.ofOption (ItemNotFound item.Name)
-                
-            let newInventory =
-                inventory
-                |> List.map (fun i ->
-                    if i.Id = item.Id then
-                        if not i.Stackable then
-                            let newQty = PositiveQuantity.subtract i.Quantity quantity |> Result.defaultValue PositiveQuantity.one
-                            { i with Quantity = newQty } else i)
-                        else
-                            
+               
+            return ()             
         }
         

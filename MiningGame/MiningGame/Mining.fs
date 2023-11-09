@@ -17,12 +17,11 @@ module Mining =
     
     let smelt (item: Item) =
         result {
-            let! one = PositiveQuantity.create 1 |> Result.mapError ModelError
             let! ingot =
                 match item.Material with
-                | Some Copper -> Ok <| Item.createIngot Copper one
-                | Some Iron -> Ok <| Item.createIngot Iron one
-                | Some Gold -> Ok <| Item.createIngot Gold one
+                | Some Copper -> Ok <| Item.createIngot Copper 1
+                | Some Iron -> Ok <| Item.createIngot Iron 1
+                | Some Gold -> Ok <| Item.createIngot Gold 1
                 | _ -> Error <| SmeltingError "Cannot smelt this ore"
             return! ingot |> Result.mapError ModelError
         }
@@ -31,19 +30,18 @@ module Mining =
         result {
             // 5 percent chance for diamond, 10 percent chance for gold, 15 percent chance for iron, 30 percent chance for copper, 30 percent chance for stone
             let randNum = Random.Shared.Next(1, 101)
-            let! one = PositiveQuantity.create 1 |> Result.mapError ModelError
             
             let! ore =
                 (if randNum <= 5 then
-                    Ok <| Item.createDiamond one
+                    Ok <| Item.createDiamond 1
                 elif randNum <= 15 then
-                    Item.createOre Gold one
+                    Item.createOre Gold 1
                 elif randNum <= 30 then
-                    Item.createOre Iron one
+                    Item.createOre Iron 1
                 elif randNum <= 60 then
-                    Item.createOre Copper one
+                    Item.createOre Copper 1
                 else
-                    Ok <| Item.createStone one) |> Result.mapError ModelError
+                    Ok <| Item.createStone 1) |> Result.mapError ModelError
             return ore   
         }
         
