@@ -4,12 +4,16 @@ open MiningGame.Models
 open FsToolkit.ErrorHandling
 
 type InventoryError =
-    | StackableItemHasInventory
-    | NonStackableItemHasQuantityGreaterThanOne
+    | ItemNotFound of string
     member this.Message =
         match this with
-        | StackableItemHasInventory -> "Stackable item has inventory"
-        | NonStackableItemHasQuantityGreaterThanOne -> "Non stackable item has quantity greater than one"
+        | ItemNotFound item -> sprintf "Item %s not found in inventory" item
+
+module Result =
+    let ofOption error result =
+        match result with
+        | Some value -> Ok value
+        | None -> Error error
 
 module Inventory =
     
@@ -39,4 +43,21 @@ module Inventory =
             
         
         
-    
+    let removeItem (inventory:Inventory) (item:Item) (quantity:int)=
+        result {
+            let! item =
+                inventory
+                |> List.tryFind (fun item -> item.Id = item.Id)
+                |> Result.ofOption (ItemNotFound item.Name)
+                
+            let newInventory =
+                inventory
+                |> List.map (fun i ->
+                    if i.Id = item.Id then
+                        if not i.Stackable then
+                            let newQty = PositiveQuantity.subtract i.Quantity quantity |> Result.defaultValue PositiveQuantity.one
+                            { i with Quantity = newQty } else i)
+                        else
+                            
+        }
+        
