@@ -27,24 +27,32 @@ module PositiveQuantity =
 
     let toInt (PositiveQuantity quantity) = quantity
 
-type Inventory = Item list
-and Item = {
-    Id: int
-    Name: string
-    Description: string
-    CraftRecipe: Item list option
-    Material: Material option
-    Inventory: Inventory option
-    Quantity: PositiveQuantity
-    Value: int
-    Stackable: bool
-}
+    let one =
+        PositiveQuantity 1
 
-type Player = {
-    Name: string
-    Money: int
-    Inventory: Inventory
-}
+type Inventory = Item list
+and Item =
+    {
+        Id: int
+        Name: string
+        Description: string
+        CraftRecipe: Item list option
+        Material: Material option
+        Inventory: Inventory option
+        Quantity: PositiveQuantity
+        Value: int
+        Stackable: bool
+    }
+    member this.IntQuantity() =
+        PositiveQuantity.toInt this.Quantity
+
+
+type Player =
+    {
+        Name: string
+        Money: int
+        Inventory: Inventory
+    }
 
 type ItemIds =
     | Dirt = 1

@@ -9,12 +9,12 @@ open Microsoft.VisualStudio.TestTools.UnitTesting
 type TestClass () =
 
     let getOre () =
-        let ore = Item.createOre Iron 1 |> Result.toOption
+        let ore = Item.createOre Iron PositiveQuantity.one |> Result.toOption
         ore.Value
     
     [<TestMethod>]
     member this.CanCreate () =
-        let result = Item.createOre Dirt 2
+        let result = Item.createOre Dirt PositiveQuantity.one
         printfn "%A" result
         Assert.IsTrue(true)
         
